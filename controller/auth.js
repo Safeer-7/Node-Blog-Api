@@ -1,28 +1,23 @@
 const {User} = require("../models")
+const hashPassword = require("../utils/hashPassword")
 
 const signup = async(req, res, next) => {
     try{
         const {name, email, password, role} = req.body
-        if(!name){
+        const isEmailExist = await User.findOne({ email })
+        if(isEmailExist){
             res.code = 400
-            throw new Error("Name is required")
+            throw new Error("Email Already Exists")
         }
-        if(!email){
-            res.code = 400
-            throw new Error("Email is required")
-        }
-        if(!password){
-            res.code = 400
-            throw new Error("Password is required")
-        }
-        if(password.lenght < 6){
-            res.code = 400
-            throw new Error("Password should be 6 char long")
-        }
-        const newUser = new User({name, email, password, role})
+        
+        const hashedPassword = await hashPassword(password)
+        const newUser = new User({name, email, password : hashedPassword, role})
         
         await newUser.save()
-        res.status(201).json({ code : 201, status:true, message : "User registered successfully"})
+        res.status(201).json({ 
+            code : 201, 
+            status:true, 
+            message : "User registered successfully"})
     }catch(error){
         next(error)
     }
