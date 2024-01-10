@@ -7,7 +7,7 @@ const signup = async(req, res, next) => {
         const isEmailExist = await User.findOne({ email })
         if(isEmailExist){
             res.code = 400
-            throw new Error("Email Already Exists")
+            throw new Error("Email Already Exists")   
         }
         
         const hashedPassword = await hashPassword(password)

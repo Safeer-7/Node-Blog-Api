@@ -14,7 +14,7 @@ const hashPassword = (password) => {
                 resolve(hash)
             })
         })
-    })
+    })    
 }
 
 module.exports = hashPassword

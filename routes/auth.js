@@ -6,4 +6,4 @@ const validate = require("../validators/validate")
 
 router.post("/signup",signupValidator, validate, authController.signup)
 
-module.exports = router
+module.exports = router       

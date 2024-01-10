@@ -13,4 +13,4 @@ const validate = (req,res,next) => {
         res.status(400).json(mappedErrors)
     }
 }
-module.exports = validate
+module.exports = validate    
