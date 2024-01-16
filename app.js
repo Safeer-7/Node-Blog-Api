@@ -18,6 +18,7 @@ connectMongoDb()
 // third party middleware
 app.use(express.json({ limit : "500mb"}))
 app.use(bodyParser.urlencoded({ limit:"500mb", extended:true}))
+app.use(bodyParser.json());
 app.use(morgan("dev"))
 
 // route section
